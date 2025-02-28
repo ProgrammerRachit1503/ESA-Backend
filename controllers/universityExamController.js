@@ -9,6 +9,9 @@ const getSubcode = async (req, res) => {
     // enter branch and slot in capital letters
     try {
         const slots = await Slot.findOne({ sem: sem, branch: branch, slot: slot }, { subcode: 1, _id: 0 });
+        if (!slots) {
+            return res.status(404).json({ 'message': 'No slots found for the provided sem, branch, and slot' });
+        }
         // sending only subcode array
         res.send(slots.subcode);
     } catch (error) {
@@ -16,7 +19,6 @@ const getSubcode = async (req, res) => {
         res.status(500).json({ 'message': error.message });
     }
 };
-
 const addSchedule = async (req, res) => {
     const { sem, date, time, branch, slot, subcode } = req.body;
     const user = req.user.username;

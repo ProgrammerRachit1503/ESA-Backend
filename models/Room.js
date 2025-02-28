@@ -18,7 +18,7 @@ const RoomSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide block name'],
         enum: {
-            values: ['M-George', 'Ramanujan'],
+            values: ['Block-A', 'Block-B', 'Block A', 'Block B'],
             message: '{VALUE} is not supported'
         }
     },
